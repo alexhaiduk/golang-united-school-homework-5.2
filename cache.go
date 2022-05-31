@@ -8,8 +8,8 @@ type Cache struct {
 }
 
 func NewCache() Cache {
-	var data = make(map[string]string, 1)
-	var datatime = make(map[string]time.Time, 1)
+	var data = make(map[string]string)
+	var datatime = make(map[string]time.Time)
 	return Cache{data, datatime}
 }
 
