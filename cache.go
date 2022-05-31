@@ -14,7 +14,7 @@ func NewCache() Cache {
 }
 
 func (c Cache) Get(key string) (string, bool) {
-	if time.Now().After(c.datatime[key]) && !c.datatime[key].IsZero() {
+	if (time.Now().After(c.datatime[key]) && !c.datatime[key].IsZero()) || time.Now().Equal(c.datatime[key]) {
 		delete(c.data, key)
 		delete(c.datatime, key)
 	}
@@ -30,7 +30,7 @@ func (c Cache) Put(key, value string) {
 func (c Cache) Keys() []string {
 	var keys = make([]string, 1)
 	for k, _ := range c.data {
-		if time.Now().Before(c.datatime[k]) || c.datatime[k].IsZero() {
+		if time.Now().Before(c.datatime[k]) || c.datatime[k].IsZero() || !time.Now().Equal(c.datatime[k]) {
 			keys = append(keys, k)
 		} else if time.Now().After(c.datatime[k]) && !c.datatime[k].IsZero() {
 			delete(c.data, k)
