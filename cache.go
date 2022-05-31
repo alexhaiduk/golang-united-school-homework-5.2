@@ -28,7 +28,7 @@ func (c Cache) Put(key, value string) {
 }
 
 func (c Cache) Keys() []string {
-	var keys = make([]string)
+	var keys = make([]string, 0)
 	for k, _ := range c.data {
 		if time.Now().Before(c.datatime[k]) || c.datatime[k].IsZero() || !time.Now().Equal(c.datatime[k]) {
 			keys = append(keys, k)
